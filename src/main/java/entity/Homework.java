@@ -1,5 +1,9 @@
 package entity;
 
+/***
+ * 作业实体类
+ * @author cywscs
+ */
 public class Homework {
 
     public Integer id;

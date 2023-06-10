@@ -1,5 +1,9 @@
 package entity;
 
+/***
+ * 学生实体类
+ * @author cywscs
+ */
 public class Student {
 
     public Integer id;
@@ -8,9 +12,9 @@ public class Student {
 
     public String password;
 
-    public String grade;
+    public String name;
 
-    public String sex;
+    public String grade;
 
 
     public Integer getId() {
@@ -45,11 +49,12 @@ public class Student {
         this.grade = grade;
     }
 
-    public String getSex() {
-        return sex;
+    public String getName() {
+        return name;
     }
 
-    public void setSex(String sex) {
-        this.sex = sex;
+    public void setName(String name) {
+        this.name = name;
     }
+
 }

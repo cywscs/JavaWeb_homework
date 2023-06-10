@@ -1,5 +1,10 @@
 package entity;
 
+
+/***
+ * 教师实体类
+ * @author cywscs
+ */
 public class Teacher {
 
     public Integer id;
@@ -9,8 +14,6 @@ public class Teacher {
     public String password;
 
     public String name;
-
-    public String sex;
 
 
     public Integer getId() {
@@ -35,14 +38,6 @@ public class Teacher {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getSex() {
-        return sex;
-    }
-
-    public void setSex(String sex) {
-        this.sex = sex;
     }
 
     public String getName() {
