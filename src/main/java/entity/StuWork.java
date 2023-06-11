@@ -13,6 +13,8 @@ public class StuWork {
 
     public String StuId;
 
+    public String answer;
+
     public String attachment;
 
     public String status;
@@ -20,6 +22,8 @@ public class StuWork {
     public String score;
 
     public String comment;
+
+    public String argument;
 
 
     public Integer getId() {
@@ -76,5 +80,21 @@ public class StuWork {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public String getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer = answer;
+    }
+
+    public String getArgument() {
+        return argument;
+    }
+
+    public void setArgument(String argument) {
+        this.argument = argument;
     }
 }

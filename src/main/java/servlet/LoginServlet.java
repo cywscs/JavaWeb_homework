@@ -1,5 +1,8 @@
 package servlet;
 
+import com.alibaba.fastjson.JSONObject;
+import util.JsonUtil;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,7 +12,7 @@ import java.io.IOException;
 
 
 @WebServlet("/login")
-public class UserServlet extends HttpServlet {
+public class LoginServlet extends HttpServlet {
 
 
     @Override
@@ -19,6 +22,6 @@ public class UserServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+
     }
 }
