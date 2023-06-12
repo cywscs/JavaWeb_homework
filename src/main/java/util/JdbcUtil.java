@@ -4,6 +4,7 @@ import com.alibaba.druid.pool.DruidDataSource;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -27,7 +28,8 @@ public class JdbcUtil {
 
         Properties prop = new Properties();
         try {
-            prop.load(new FileInputStream("jdbc.properties"));
+            InputStream in = JdbcUtil.class.getClassLoader().getResourceAsStream("jdbc.properties");
+            prop.load(in);
             driverClass = prop.getProperty("driverClass");
             url = prop.getProperty("url");
             user = prop.getProperty("user");

@@ -9,9 +9,9 @@ public class StuWork {
 
     public Integer id;
 
-    public String WorkId;
+    public Integer work_id;
 
-    public String StuId;
+    public Integer stu_id;
 
     public String answer;
 
@@ -34,20 +34,20 @@ public class StuWork {
         this.id = id;
     }
 
-    public String getWorkId() {
-        return WorkId;
+    public Integer getWork_id() {
+        return work_id;
     }
 
-    public void setWorkId(String workId) {
-        WorkId = workId;
+    public void setWork_id(Integer work_id) {
+        this.work_id = work_id;
     }
 
-    public String getStuId() {
-        return StuId;
+    public Integer getStu_id() {
+        return stu_id;
     }
 
-    public void setStuId(String stuId) {
-        StuId = stuId;
+    public void setStu_id(Integer stu_id) {
+        this.stu_id = stu_id;
     }
 
     public String getAttachment() {
