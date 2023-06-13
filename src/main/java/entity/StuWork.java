@@ -7,23 +7,23 @@ package entity;
  */
 public class StuWork {
 
-    public Integer id;
+    private Integer id;
 
-    public Integer work_id;
+    private Integer work_id;
 
-    public Integer stu_id;
+    private Integer stu_id;
 
-    public String answer;
+    private String answer;
 
-    public String attachment;
+    private String attachment;
 
-    public String status;
+    private String status;
 
-    public String score;
+    private String score;
 
-    public String comment;
+    private String comment;
 
-    public String argument;
+    private String argument;
 
 
     public Integer getId() {

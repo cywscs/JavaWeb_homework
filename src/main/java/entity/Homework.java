@@ -6,13 +6,13 @@ package entity;
  */
 public class Homework {
 
-    public Integer id;
+    private Integer id;
 
-    public String content;
+    private String content;
 
-    public String requirement;
+    private String requirement;
 
-    public String deadline;
+    private String deadline;
 
     public Integer getId() {
         return id;

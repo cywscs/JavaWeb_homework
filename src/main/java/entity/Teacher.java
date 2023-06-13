@@ -7,13 +7,13 @@ package entity;
  */
 public class Teacher {
 
-    public Integer id;
+    private Integer id;
 
-    public String username;
+    private String username;
 
-    public String password;
+    private String password;
 
-    public String name;
+    private String name;
 
 
     public Integer getId() {
