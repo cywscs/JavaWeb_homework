@@ -16,6 +16,8 @@ public class SignupServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String role = req.getParameter("role");
         String name = req.getParameter("name");
+        String id = req.getParameter("id");
+        Integer stuid = Integer.parseInt(id);
         String username = req.getParameter("username");
         String password = req.getParameter("password");
         String grade = req.getParameter("grade");
@@ -26,8 +28,8 @@ public class SignupServlet extends HttpServlet {
             JdbcUtil.exeUpdate(sql, username, password, name);
             respJson.put("msg", "sign up success");
         }else{
-            String sql = "insert into student value(null, ?, ?, ?, ?)";
-            JdbcUtil.exeUpdate(sql, username, password, name, grade);
+            String sql = "insert into student value(?, ?, ?, ?, ?)";
+            JdbcUtil.exeUpdate(sql, stuid, username, password, name, grade);
             respJson.put("msg", "sign up success");
         }
 

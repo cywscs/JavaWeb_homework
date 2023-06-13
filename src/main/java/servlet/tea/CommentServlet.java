@@ -26,12 +26,14 @@ public class CommentServlet extends HttpServlet {
         StuWork work = stuWorkList.get(0);
         work.setScore(score);
         work.setComment(comment);
-        String sql2 = "insert into ";
-
+        String sql2 = "insert into stu_work value(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        JdbcUtil.exeUpdate("delete from stu_work where id=?", work.getId());
+        JdbcUtil.exeUpdate(sql2, work.getId(), work.getWork_id(), work.getStu_id(), work.getAttachment(), work.getAnswer(),
+                work.getStatus(), work.getScore(), work.getComment(), work.getArgument());
 
         JSONObject respJson = new JSONObject();
         respJson.put("code", 200);
-        respJson.put("msg", "success");
+        respJson.put("msg", "comment success");
         resp.setCharacterEncoding("utf-8");
         resp.setContentType("application/json");
         resp.getWriter().write(String.valueOf(respJson));

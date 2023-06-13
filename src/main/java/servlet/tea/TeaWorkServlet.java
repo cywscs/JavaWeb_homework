@@ -19,10 +19,9 @@ import java.util.List;
 public class TeaWorkServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        JSONArray data = new JSONArray();
         String sql = "select * from homework";
         List<Homework> workList = JdbcUtil.queryList(Homework.class, sql);
-        data = JSONArray.parseArray(JSON.toJSONString(workList));
+        JSONArray data = JSONArray.parseArray(JSON.toJSONString(workList));
 
         // return JSON-data
         JSONObject respJson = new JSONObject();
