@@ -1,19 +1,26 @@
 package entity;
 
+import com.alibaba.excel.annotation.ExcelProperty;
+
 /***
  * 学生实体类
  * @author cywscs
  */
 public class Student {
 
+    @ExcelProperty(value = "学生编号")
     private Integer id;
 
+    @ExcelProperty(value = "用户名")
     private String username;
 
+    @ExcelProperty(value = "密码")
     private String password;
 
+    @ExcelProperty(value = "姓名")
     private String name;
 
+    @ExcelProperty(value = "教学班")
     private String grade;
 
 
