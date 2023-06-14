@@ -24,6 +24,7 @@ public class CommentServlet extends HttpServlet {
         String sql1 = "select * from stu_work where id = ?";
         List<StuWork> stuWorkList = JdbcUtil.queryList(StuWork.class, sql1, workId);
         StuWork work = stuWorkList.get(0);
+        work.setStatus("true");
         work.setScore(score);
         work.setComment(comment);
         String sql2 = "insert into stu_work value(?, ?, ?, ?, ?, ?, ?, ?, ?)";

@@ -20,14 +20,13 @@ public class StuWorkServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         JSONObject respJson = new JSONObject();
-        JSONArray data = new JSONArray();
         String stuid = req.getParameter("stuid");
         String grade = req.getParameter("grade");
         String status = req.getParameter("status");
 
         String sql = "select * from stu_work";
         List<StuWork> list = JdbcUtil.queryList(StuWork.class, sql);
-        data = JSONArray.parseArray(JSON.toJSONString(list));
+        JSONArray data = JSONArray.parseArray(JSON.toJSONString(list));
 
         respJson.put("code", 200);
         respJson.put("msg", "success");
