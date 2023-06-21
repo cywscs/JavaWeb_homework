@@ -34,12 +34,13 @@ public class ImportServlet extends HttpServlet {
                             .sheet().doRead();
                 }
             }
+            respJson.put("code", 200);
             respJson.put("msg", "import success");
         } catch (FileUploadException e) {
+            respJson.put("code", 400);
             respJson.put("msg", "import failed!");
             e.printStackTrace();
         }finally {
-            respJson.put("code", 200);
             resp.setCharacterEncoding("utf-8");
             resp.setContentType("application/json");
             resp.getWriter().write(String.valueOf(respJson));

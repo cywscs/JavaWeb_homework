@@ -1,6 +1,7 @@
 package servlet.common;
 
 import com.alibaba.fastjson.JSONObject;
+import com.wf.captcha.utils.CaptchaUtil;
 import util.JdbcUtil;
 import util.JsonUtil;
 
@@ -25,18 +26,23 @@ public class SignupServlet extends HttpServlet {
         String grade = data.getString("grade");
         JSONObject respJson = new JSONObject();
 
-        if(role.equals("teacher")){
-            String sql = "insert into teacher value(null, ?, ?, ?)";
-            JdbcUtil.exeUpdate(sql, username, password, name);
-            respJson.put("msg", "sign up success");
-        }else{
-            String sql = "insert into student value(?, ?, ?, ?, ?)";
-            JdbcUtil.exeUpdate(sql, stuid, username, password, name, grade);
+        String verCode = req.getParameter("verCode");
+        if (!CaptchaUtil.ver(verCode, req)) {
+            CaptchaUtil.clear(req);  // 清除session中的验证码
+            respJson.put("code", 400);
+            respJson.put("msg", "check code not matched");
+        }else {
+            String sql;
+            if(role.equals("teacher")){
+                sql = "insert into teacher value(null, ?, ?, ?)";
+                JdbcUtil.exeUpdate(sql, username, password, name);
+            }else{
+                sql = "insert into student value(?, ?, ?, ?, ?)";
+                JdbcUtil.exeUpdate(sql, stuid, username, password, name, grade);
+            }
+            respJson.put("code", 200);
             respJson.put("msg", "sign up success");
         }
-
-
-        respJson.put("code", 200);
         resp.setCharacterEncoding("utf-8");
         resp.setContentType("application/json");
         resp.getWriter().write(String.valueOf(respJson));

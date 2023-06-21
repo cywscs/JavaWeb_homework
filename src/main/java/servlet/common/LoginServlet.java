@@ -1,6 +1,7 @@
 package servlet.common;
 
 import com.alibaba.fastjson.JSONObject;
+import com.wf.captcha.utils.CaptchaUtil;
 import entity.Student;
 import entity.Teacher;
 import util.JdbcUtil;
@@ -26,38 +27,49 @@ public class LoginServlet extends HttpServlet {
         String username = data.getString("username");
         String password = data.getString("password");
         String role = data.getString("role");
+        String verCode = data.getString("verCode");
 
-        if(role.equals("teacher")){
-            String sql = "select * from teacher where username=?";
-            List<Teacher> teacherslist = JdbcUtil.queryList(Teacher.class, sql, username);
-            if (teacherslist != null) {
-                if (teacherslist.get(0).getPassword().equals(password)) {
-                    respJson.put("msg", "login success");
-                    HttpSession session = req.getSession();
-                    session.setAttribute("user", teacherslist.get(0));
-                } else {
-                    respJson.put("msg", "mi ma cuo wu");
+        if (!CaptchaUtil.ver(verCode, req)) {
+            CaptchaUtil.clear(req);  // 清除session中的验证码
+            respJson.put("code", 400);
+            respJson.put("msg", "check code not matched");
+        }else {
+            if(role.equals("teacher")){
+                String sql = "select * from teacher where username=?";
+                List<Teacher> teacherslist = JdbcUtil.queryList(Teacher.class, sql, username);
+                if (teacherslist != null) {
+                    if (teacherslist.get(0).getPassword().equals(password)) {
+                        respJson.put("code", 200);
+                        respJson.put("msg", "login success");
+                        HttpSession session = req.getSession();
+                        session.setAttribute("user", teacherslist.get(0));
+                    } else {
+                        respJson.put("code", 400);
+                        respJson.put("msg", "mi ma cuo wu");
+                    }
+                }else{
+                    respJson.put("code", 400);
+                    respJson.put("msg", "zhang hao bu cun zai");
                 }
             }else{
-                respJson.put("msg", "zhang hao bu cun zai");
-            }
-        }else{
-            String sql = "select * from student where username=?";
-            List<Student> studentlist = JdbcUtil.queryList(Student.class, sql, username);
-            if (studentlist != null) {
-                if (studentlist.get(0).getPassword().equals(password)) {
-                    respJson.put("msg", "login success");
-                    HttpSession session = req.getSession();
-                    session.setAttribute("user", studentlist.get(0));
-                } else {
-                    respJson.put("msg", "mi ma cuo wu");
+                String sql = "select * from student where username=?";
+                List<Student> studentlist = JdbcUtil.queryList(Student.class, sql, username);
+                if (studentlist != null) {
+                    if (studentlist.get(0).getPassword().equals(password)) {
+                        respJson.put("code", 200);
+                        respJson.put("msg", "login success");
+                        HttpSession session = req.getSession();
+                        session.setAttribute("user", studentlist.get(0));
+                    } else {
+                        respJson.put("code", 400);
+                        respJson.put("msg", "mi ma cuo wu");
+                    }
+                }else{
+                    respJson.put("code", 400);
+                    respJson.put("msg", "zhang hao bu cun zai");
                 }
-            }else{
-                respJson.put("msg", "zhang hao bu cun zai");
             }
         }
-
-        respJson.put("code", 200);
         resp.setCharacterEncoding("utf-8");
         resp.setContentType("application/json");
         resp.getWriter().write(String.valueOf(respJson));
