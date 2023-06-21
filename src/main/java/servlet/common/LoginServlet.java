@@ -22,12 +22,12 @@ import java.util.List;
 public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        JSONObject data = JsonUtil.getJson(req);  // receive JSON-data
+//        JSONObject data = JsonUtil.getJson(req);  // receive JSON-data
         JSONObject respJson = new JSONObject();
-        String username = data.getString("username");
-        String password = data.getString("password");
-        String role = data.getString("role");
-        String verCode = data.getString("verCode");
+        String username = req.getParameter("username");
+        String password = req.getParameter("password");
+        String role = req.getParameter("role");
+        String verCode = req.getParameter("verCode");
 
         if (!CaptchaUtil.ver(verCode, req)) {
             CaptchaUtil.clear(req);  // 清除session中的验证码

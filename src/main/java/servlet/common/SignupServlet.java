@@ -16,17 +16,17 @@ import java.io.IOException;
 public class SignupServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        JSONObject data = JsonUtil.getJson(req);  // receive JSON-data
-        String role = data.getString("role");
-        String name = data.getString("name");
-        String id = data.getString("id");
-        Integer stuid = Integer.parseInt(id);
-        String username = data.getString("username");
-        String password = data.getString("password");
-        String grade = data.getString("grade");
+//        JSONObject data = JsonUtil.getJson(req);  // receive JSON-data
         JSONObject respJson = new JSONObject();
-
+        String role = req.getParameter("role");
+        String name = req.getParameter("name");
+        String id = req.getParameter("id");
+        Integer stuid = Integer.parseInt(id);
+        String username = req.getParameter("username");
+        String password = req.getParameter("password");
+        String grade = req.getParameter("grade");
         String verCode = req.getParameter("verCode");
+
         if (!CaptchaUtil.ver(verCode, req)) {
             CaptchaUtil.clear(req);  // 清除session中的验证码
             respJson.put("code", 400);
