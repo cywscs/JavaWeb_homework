@@ -8,7 +8,7 @@ import com.alibaba.excel.annotation.ExcelProperty;
  */
 public class Student {
 
-    @ExcelProperty(value = "学生编号")
+    @ExcelProperty(value = "学号")
     private Integer id;
 
     @ExcelProperty(value = "用户名")
