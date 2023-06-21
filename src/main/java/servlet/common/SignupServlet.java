@@ -2,6 +2,7 @@ package servlet.common;
 
 import com.alibaba.fastjson.JSONObject;
 import com.wf.captcha.utils.CaptchaUtil;
+import org.apache.commons.codec.digest.DigestUtils;
 import util.JdbcUtil;
 import util.JsonUtil;
 
@@ -24,8 +25,10 @@ public class SignupServlet extends HttpServlet {
         Integer stuid = Integer.parseInt(id);
         String username = req.getParameter("username");
         String password = req.getParameter("password");
+        String pwd = DigestUtils.md5Hex(password);
         String grade = req.getParameter("grade");
         String verCode = req.getParameter("verCode");
+        System.out.println(pwd);
 
         if (!CaptchaUtil.ver(verCode, req)) {
             CaptchaUtil.clear(req);  // 清除session中的验证码
