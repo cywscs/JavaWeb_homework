@@ -37,8 +37,8 @@ public class SignupServlet extends HttpServlet {
         }else {
             String sql;
             if(role.equals("teacher")){
-                sql = "insert into teacher value(null, ?, ?, ?)";
-                JdbcUtil.exeUpdate(sql, username, password, name);
+                sql = "insert into teacher value(null, ?, ?, ?, ?)";
+                JdbcUtil.exeUpdate(sql, username, password, name, grade);
             }else{
                 sql = "insert into student value(?, ?, ?, ?, ?)";
                 JdbcUtil.exeUpdate(sql, stuid, username, password, name, grade);
