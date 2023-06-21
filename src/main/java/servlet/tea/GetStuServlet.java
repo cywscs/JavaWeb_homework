@@ -23,8 +23,7 @@ public class GetStuServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         Teacher teacher = (Teacher) session.getAttribute("user");
-        System.out.println(teacher.toString());
-        String grade = req.getParameter("grade");
+        String grade = teacher.getGrade();
         String sql = "select * from student where grade = ?";
         List<Student> studentList = JdbcUtil.queryList(Student.class, sql, grade);
         JSONArray data = JSONArray.parseArray(JSON.toJSONString(studentList));

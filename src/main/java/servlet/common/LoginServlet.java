@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.wf.captcha.utils.CaptchaUtil;
 import entity.Student;
 import entity.Teacher;
+import org.apache.commons.codec.digest.DigestUtils;
 import util.JdbcUtil;
 import util.JsonUtil;
 
@@ -28,6 +29,7 @@ public class LoginServlet extends HttpServlet {
         String password = req.getParameter("password");
         String role = req.getParameter("role");
         String verCode = req.getParameter("verCode");
+        String pwd = DigestUtils.md5Hex(password);  //md5
 
         if (!CaptchaUtil.ver(verCode, req)) {
             CaptchaUtil.clear(req);  // 清除session中的验证码
@@ -38,7 +40,7 @@ public class LoginServlet extends HttpServlet {
                 String sql = "select * from teacher where username=?";
                 List<Teacher> teacherslist = JdbcUtil.queryList(Teacher.class, sql, username);
                 if (teacherslist != null) {
-                    if (teacherslist.get(0).getPassword().equals(password)) {
+                    if (teacherslist.get(0).getPassword().equals(pwd)) {
                         respJson.put("code", 200);
                         respJson.put("msg", "login success");
                         HttpSession session = req.getSession();
@@ -55,7 +57,7 @@ public class LoginServlet extends HttpServlet {
                 String sql = "select * from student where username=?";
                 List<Student> studentlist = JdbcUtil.queryList(Student.class, sql, username);
                 if (studentlist != null) {
-                    if (studentlist.get(0).getPassword().equals(password)) {
+                    if (studentlist.get(0).getPassword().equals(pwd)) {
                         respJson.put("code", 200);
                         respJson.put("msg", "login success");
                         HttpSession session = req.getSession();
