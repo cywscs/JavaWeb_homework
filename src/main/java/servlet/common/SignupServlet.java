@@ -2,6 +2,7 @@ package servlet.common;
 
 import com.alibaba.fastjson.JSONObject;
 import util.JdbcUtil;
+import util.JsonUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,13 +15,14 @@ import java.io.IOException;
 public class SignupServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String role = req.getParameter("role");
-        String name = req.getParameter("name");
-        String id = req.getParameter("id");
+        JSONObject data = JsonUtil.getJson(req);  // receive JSON-data
+        String role = data.getString("role");
+        String name = data.getString("name");
+        String id = data.getString("id");
         Integer stuid = Integer.parseInt(id);
-        String username = req.getParameter("username");
-        String password = req.getParameter("password");
-        String grade = req.getParameter("grade");
+        String username = data.getString("username");
+        String password = data.getString("password");
+        String grade = data.getString("grade");
         JSONObject respJson = new JSONObject();
 
         if(role.equals("teacher")){

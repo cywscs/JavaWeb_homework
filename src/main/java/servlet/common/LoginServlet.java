@@ -21,10 +21,11 @@ import java.util.List;
 public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String username = req.getParameter("username");
-        String password = req.getParameter("password");
-        String role = req.getParameter("role");
+        JSONObject data = JsonUtil.getJson(req);  // receive JSON-data
         JSONObject respJson = new JSONObject();
+        String username = data.getString("username");
+        String password = data.getString("password");
+        String role = data.getString("role");
 
         if(role.equals("teacher")){
             String sql = "select * from teacher where username=?";

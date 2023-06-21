@@ -3,6 +3,7 @@ package servlet.tea;
 import com.alibaba.fastjson.JSONObject;
 import entity.Student;
 import util.JdbcUtil;
+import util.JsonUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,9 +16,10 @@ import java.io.IOException;
 public class AddStuServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String id = req.getParameter("id");
-        String name = req.getParameter("name");
-        String grade = req.getParameter("grade");
+        JSONObject data = JsonUtil.getJson(req);  // receive JSON-data
+        String id = data.getString("id");
+        String name = data.getString("name");
+        String grade = data.getString("grade");
 
         Integer stuid = Integer.parseInt(id);
         String sql = "insert into student value(?, ?, ?, ?, ?)";

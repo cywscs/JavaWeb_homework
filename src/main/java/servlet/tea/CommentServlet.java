@@ -3,6 +3,7 @@ package servlet.tea;
 import com.alibaba.fastjson.JSONObject;
 import entity.StuWork;
 import util.JdbcUtil;
+import util.JsonUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,9 +18,10 @@ import java.util.List;
 public class CommentServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String workId = req.getParameter("id");
-        String score = req.getParameter("score");
-        String comment = req.getParameter("comment");
+        JSONObject data = JsonUtil.getJson(req);  // receive JSON-data
+        String workId = data.getString("id");
+        String score = data.getString("score");
+        String comment = data.getString("comment");
 
         String sql1 = "select * from stu_work where id = ?";
         List<StuWork> stuWorkList = JdbcUtil.queryList(StuWork.class, sql1, workId);

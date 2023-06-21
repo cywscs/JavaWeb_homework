@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import entity.Homework;
 import entity.StuWork;
 import util.JdbcUtil;
+import util.JsonUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,9 +19,10 @@ import java.util.List;
 public class ArgumentServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String id = req.getParameter("id");
+        JSONObject data = JsonUtil.getJson(req);  // receive JSON-data
+        String id = data.getString("id");
         Integer stuid = Integer.parseInt(id);
-        String argument = req.getParameter("argument");
+        String argument = data.getString("argument");
 
         String sql1 = "select * from stu_work where id = ?";
         List<StuWork> stuWork = JdbcUtil.queryList(StuWork.class, sql1, stuid);

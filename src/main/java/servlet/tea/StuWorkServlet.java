@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import entity.StuWork;
 import util.JdbcUtil;
+import util.JsonUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,18 +20,19 @@ import java.util.List;
 public class StuWorkServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        JSONObject data = JsonUtil.getJson(req);  // receive JSON-data
         JSONObject respJson = new JSONObject();
-        String stuid = req.getParameter("stuid");
-        String grade = req.getParameter("grade");
-        String status = req.getParameter("status");
+        String stuid = data.getString("stuid");
+        String grade = data.getString("grade");
+        String status = data.getString("status");
 
         String sql = "select * from stu_work";
         List<StuWork> list = JdbcUtil.queryList(StuWork.class, sql);
-        JSONArray data = JSONArray.parseArray(JSON.toJSONString(list));
+        JSONArray return_data = JSONArray.parseArray(JSON.toJSONString(list));
 
         respJson.put("code", 200);
         respJson.put("msg", "success");
-        respJson.put("data", data);
+        respJson.put("data", return_data);
         resp.setCharacterEncoding("utf-8");
         resp.setContentType("application/json");
         resp.getWriter().write(String.valueOf(respJson));

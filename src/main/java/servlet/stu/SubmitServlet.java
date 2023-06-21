@@ -53,13 +53,13 @@ public class SubmitServlet extends HttpServlet {
                         System.out.println(fileName);
                         String ext = fileName.substring(fileName.lastIndexOf("."));
                         String name = java.util.UUID.randomUUID()+ext;
-                        filePath = "/home/cywscs" + File.separator +name;
-                        File file = new File(filePath);
+                        filePath = File.separator + name;
+                        File file = new File("/opt/apache-tomcat-9.0.75/webapps/file" + filePath);
                         fileItem.write(file);
                     }
                 }
                 String sql = "insert into stu_work value(null, ?, ?, ?, ?, 'false', null, null, null)";
-                JdbcUtil.exeUpdate(sql, workId, stuId, filePath, answer);
+                JdbcUtil.exeUpdate(sql, workId, stuId, "http://sdauqihang.club:8080/file"+filePath, answer);
             } catch (Exception e) {
                 e.printStackTrace();
             }
